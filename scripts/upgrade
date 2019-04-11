@@ -22,15 +22,15 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get "$app" domain)
 path=$(ynh_app_setting_get "$app" path)
 is_public=$(ynh_app_setting_get "$app" is_public)
-redirect_type=$(ynh_app_setting_get "$app" redirect_type)
-redirect_path=$(ynh_app_setting_get "$app" redirect_path)
+#redirect_type=$(ynh_app_setting_get "$app" redirect_type)
+dynmap_path=$(ynh_app_setting_get "$app" dynmap_path)
 
 # Default value for redirect_type if upgrading from https://github.com/scith/redirect_ynh
-if [ -z "$redirect_type" ];
-then
-    redirect_type="proxy"
-    ynh_app_setting_set $app 'redirect_type' $redirect_type
-fi
+#if [ -z "$redirect_type" ];
+#then
+#    redirect_type="proxy"
+#    ynh_app_setting_set $app 'redirect_type' $redirect_type
+#fi
 
 # Remove trailing slash to path
 path=${path%/}
@@ -42,25 +42,25 @@ sudo yunohost app checkurl $domain$path -a $app \
     || (echo "Path not available: $domain$path" && exit 1)
 
 # Validate redirect path
-url_regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-[[ ! $redirect_path =~ $url_regex ]] && ynh_die \
-"Invalid destination: $redirect_path" 1
+#url_regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+#[[ ! $redirect_path =~ $url_regex ]] && ynh_die \
+#"Invalid destination: $redirect_path" 1
 
 # Nginx configuration
 sed -i "s@YNH_LOCATION@$location@g" ../conf/nginx-*.conf
-if [ "$redirect_type" = "visible_302" ];
-then
-    sed -i "s@YNH_REDIRECT_PATH@$redirect_path@g" ../conf/nginx-visible-302.conf
-    sudo cp ../conf/nginx-visible-302.conf /etc/nginx/conf.d/$domain.d/$app.conf
-elif [ "$redirect_type" = "visible_301" ];
-then
-    sed -i "s@YNH_REDIRECT_PATH@$redirect_path@g" ../conf/nginx-visible-301.conf
-    sudo cp ../conf/nginx-visible-301.conf /etc/nginx/conf.d/$domain.d/$app.conf
-elif [ "$redirect_type" = "proxy" ];
-then
-    sed -i "s@YNH_REDIRECT_PATH@$redirect_path@g" ../conf/nginx-proxy.conf
-    sudo cp ../conf/nginx-proxy.conf /etc/nginx/conf.d/$domain.d/$app.conf
-fi
+#if [ "$redirect_type" = "visible_302" ];
+#then
+    sed -i "s@YNH_DYNMAP_PATH@$dynmap_path@g" ../conf/dynmap.conf
+    sudo cp ../conf/dynmap.conf /etc/nginx/conf.d/$domain.d/$app.conf
+#elif [ "$redirect_type" = "visible_301" ];
+#then
+#    sed -i "s@YNH_REDIRECT_PATH@$redirect_path@g" ../conf/nginx-visible-301.conf
+#    sudo cp ../conf/nginx-visible-301.conf /etc/nginx/conf.d/$domain.d/$app.conf
+#elif [ "$redirect_type" = "proxy" ];
+#then
+#    sed -i "s@YNH_REDIRECT_PATH@$redirect_path@g" ../conf/nginx-proxy.conf
+#    sudo cp ../conf/nginx-proxy.conf /etc/nginx/conf.d/$domain.d/$app.conf
+#fi
 
 # Make app public if necessary
 if [[ "$is_public" -ne 0 ]];
