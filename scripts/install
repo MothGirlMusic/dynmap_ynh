@@ -44,7 +44,7 @@ sudo yunohost app setting $app is_public -v "$is_public"
 sudo yunohost app setting $app dynmap_path -v "$dynmap_path"
 
 # Nginx configuration
-sed -i "s@YNH_LOCATION@$location@g" ../conf/nginx-*.conf
+#sed -i "s@YNH_LOCATION@$location@g" ../conf/nginx-*.conf
 #if [ "$redirect_type" = "visible_302" ];
 #then
     sed -i "s@YNH_DYNMAP_PATH@$dynmap_path@g" ../conf/dynmap.conf
