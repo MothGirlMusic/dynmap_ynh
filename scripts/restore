@@ -22,8 +22,8 @@ app=$YNH_APP_INSTANCE_NAME
 domain=$(ynh_app_setting_get "$app" domain)
 path=$(ynh_app_setting_get "$app" path)
 is_public=$(ynh_app_setting_get "$app" is_public)
-redirect_type=$(ynh_app_setting_get "$app" redirect_type)
-redirect_path=$(ynh_app_setting_get "$app" redirect_path)
+#redirect_type=$(ynh_app_setting_get "$app" redirect_type)
+dynmap_path=$(ynh_app_setting_get "$app" dynmap_path)
 
 # Remove trailing slash to path
 path=${path%/}
@@ -33,9 +33,9 @@ sudo yunohost app checkurl $domain$path -a $app \
   || die "The path ${domain}${path} is not available for app installation."
 
 # Validate redirect path
-url_regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-[[ ! $redirect_path =~ $url_regex ]] && ynh_die \
-"Invalid destination: $redirect_path" 1
+#url_regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+#[[ ! $redirect_path =~ $url_regex ]] && ynh_die \
+#"Invalid destination: $redirect_path" 1
 
 # Check configuration files
 NGINX_CONF="/etc/nginx/conf.d/${domain}.d/${app}.conf"
