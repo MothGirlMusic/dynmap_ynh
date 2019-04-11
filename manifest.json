@@ -32,11 +32,11 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for your map",
-                    "fr": "Choisissez un chemin pour votre carte"
+                    "en": "Choose a path for your map. This must be root or you will have issues.",
+                    "fr": "Choisissez un chemin pour votre carte. This must be root or you will have issues."
                 },
-                "example": "/dynmap",
-                "default": "/dynmap"
+                "example": "/",
+                "default": "/"
             },
             {
                 "name": "dynmap_path",
