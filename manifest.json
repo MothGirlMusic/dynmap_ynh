@@ -1,17 +1,17 @@
 {
-    "name": "Redirect",
-    "id": "redirect",
+    "name": "Dynmap",
+    "id": "dynmap",
     "packaging_format": 1,
     "requirements": {
         "yunohost": ">= 2.4"
     },
     "description": {
-        "en": "Create a redirection or a proxy to another path.",
-        "fr": "Créer une redirection ou un proxy vers un autre emplacement"
+        "en": "Create a redirection for the Minecraft Dynamic Map plugin with nginx.",
+        "fr": "Créer une redirection ou Le plugin carte dynamique de Minecraft avec nginx."
     },
     "maintainer": {
-        "name": "opi",
-        "email": "opi@zeropi.net"
+        "name": "mothgirlmusic",
+        "email": "moth@mothnet.xyz"
     },
     "multi_instance": "true",
     "services": [
@@ -23,8 +23,8 @@
                 "name": "domain",
                 "type": "domain",
                 "ask": {
-                    "en": "Choose a domain for your redirect",
-                    "fr": "Choisissez un domaine pour votre redirection"
+                    "en": "Choose a domain for your map",
+                    "fr": "Choisissez un domaine pour votre carte"
                 },
                 "example": "domain.org"
             },
@@ -32,42 +32,29 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for your redirect",
-                    "fr": "Choisissez un chemin pour votre redirection"
+                    "en": "Choose a path for your map",
+                    "fr": "Choisissez un chemin pour votre carte"
                 },
-                "example": "/redirect",
-                "default": "/redirect"
+                "example": "/dynmap",
+                "default": "/dynmap"
             },
             {
-                "name": "redirect_path",
+                "name": "dynmap_path",
                 "ask": {
-                    "en": "Redirect destination path",
-                    "fr": "Emplacement de destination"
+                    "en": "dynmap web folder path",
+                    "fr": "chemin de dossier Web dynmap"
                 },
-                "example": "http://127.0.0.1:8080/app/",
-                "default": "http://127.0.0.1"
+                "example": "/var/srv/Minecraft/plugins/dynmap/web",
+                "default": "/var/srv/Minecraft/plugins/dynmap/web"
             },
             {
                 "name": "is_public",
                 "type": "boolean",
                 "ask": {
-                    "en": "Is it a public redirect ?",
-                    "fr": "Est-ce une redirection publique ?"
+                    "en": "Is it a public map ?",
+                    "fr": "Est-ce une carte publique ?"
                 },
-                "default": false
-            },
-            {
-                "name": "redirect_type",
-                "ask": {
-                    "en": "Redirect type",
-                    "fr": "Type de redirection"
-                },
-                "choices": {
-                  "visible_302" : "Visible (302, temporary redirect)",
-                  "visible_301" : "Visible (301, permanent redirect)",
-                  "proxy": "Proxy, invisible (Nginx proxy_pass)"
-                },
-                "default": "visible_302"
+                "default": true
             }
         ]
     }
