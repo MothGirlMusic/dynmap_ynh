@@ -47,7 +47,7 @@ sudo yunohost app checkurl $domain$path -a $app \
 #"Invalid destination: $redirect_path" 1
 
 # Nginx configuration
-sed -i "s@YNH_LOCATION@$location@g" ../conf/nginx-*.conf
+#sed -i "s@YNH_LOCATION@$location@g" ../conf/nginx-*.conf
 #if [ "$redirect_type" = "visible_302" ];
 #then
     sed -i "s@YNH_DYNMAP_PATH@$dynmap_path@g" ../conf/dynmap.conf
